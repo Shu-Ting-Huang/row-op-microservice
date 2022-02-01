@@ -24,7 +24,7 @@ class RowOpSequence:
 def next_row_op(A):
     # A is empty matrix
     if len(A) == 0:
-        return {}
+        return None
 
     # The first column of A is zero vector
     elif A[:,0].is_zero_matrix:
@@ -37,9 +37,10 @@ def next_row_op(A):
     # A[0,0] is the only non-zero entry in the first column
     elif A[1:,0].is_zero_matrix:
         temp_row_op = next_row_op(A[1:,1:])
-        for key in temp_row_op.keys():
-            if key.startswith("row"):
-                temp_row_op[key] += 1
+        if isinstance(temp_row_op, dict):
+            for key in temp_row_op.keys():
+                if key.startswith("row"):
+                    temp_row_op[key] += 1
         return temp_row_op
     
     # A[1:,0] has some non-zero entries
