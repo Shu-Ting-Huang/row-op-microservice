@@ -24,7 +24,7 @@ class RowOpSequence:
 def next_row_op(A):
     # A is empty matrix
     if len(A) == 0:
-        return None
+        return {}
 
     # The first column of A is zero vector
     elif A[:,0].is_zero_matrix:
