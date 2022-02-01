@@ -1,4 +1,4 @@
-from sympy import simplify
+from sympy import simplify, eye
 
 # An object of RowOpSequence consists of a sequence of matrices connected by elementary row operations 
 class RowOpSequence:
@@ -47,3 +47,20 @@ def next_row_op(A):
     else:
         i = min(i for i in range(1, A.shape[0]) if A[i,0] != 0)
         return {"op": "n->n+km", "k": -A[i,0]/A[0,0], "row": i, "row2": 0}
+
+def next_row_op_Gauss_Jordan(A):
+    (m,n) = A.shape
+    i = -1
+    for j in range(n):
+        if A[i+1:,j].is_zero_matrix:
+            pass
+        elif A[:,j] == eye(m)[:,i+1]:
+            i += 1
+        else:
+            if A[i+1,j] == 0:
+                return {"op": "n<->m", "row1": i+1, "row2": min(i_temp for i_temp in range(i+2, m) if A[i_temp,j] != 0)}
+            elif A[i+1,j] != 1:
+                return {"op": "n->kn", "k": 1/A[i+1,j], "row": i+1}
+            else:
+                i0 = min(i_temp for i_temp in range(m) if i_temp != i+1 and A[i_temp,j] != 0)
+                return {"op": "n->n+km", "k": -A[i0,j], "row": i0, "row2": i+1}
