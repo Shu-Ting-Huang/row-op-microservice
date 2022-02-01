@@ -1,6 +1,6 @@
 from __init__ import RowOpSequence, next_row_op_Gauss_Jordan
 
-from sympy import Matrix, Rational, Symbol, eye, GF
+from sympy import Matrix, Rational, Symbol, eye, GF, prime
 from random import choice
 
 for _ in range(5):
@@ -21,15 +21,15 @@ assert row_op_seq.matrices[-1][:,2:4]*(Symbol('a')*Symbol('d')-Symbol('b')*Symbo
 assert len(row_op_seq.row_ops) == 4
 assert len(row_op_seq.matrices) == 5
 
-K = GF(3571) # 3571 is the 500th prime
 for _ in range(5):
     m = choice(range(1,15))
     n = choice(range(1,15))
-    A = Matrix(m, n, lambda i,j: K(choice(range(3571))))
+    p = prime(choice(range(1,500)))
+    K = GF(p)
+    A = Matrix(m, n, lambda i,j: K(choice(range(p))))
     row_op_seq = RowOpSequence(A)
     while next_row_op_Gauss_Jordan(row_op_seq.matrices[-1]) != None:
         row_op_seq.add_step(next_row_op_Gauss_Jordan(row_op_seq.matrices[-1]))
     assert row_op_seq.matrices[-1] == A.rref()[0]
-
 
 print("\nAll tests are passed")
