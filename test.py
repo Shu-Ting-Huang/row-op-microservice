@@ -7,8 +7,8 @@ def random_rational():
     return Rational(choice(range(-100,100)), choice(range(1,50)))
 
 for _ in range(5):
-    m = choice(range(1,15))
-    n = choice(range(1,15))
+    m = choice(range(1,8))
+    n = choice(range(1,8))
     A = Matrix(m, n, lambda i,j: random_rational())
     row_op_seq = RowOpSequence(A)
     while next_row_op_Gauss_Jordan(row_op_seq.matrices[-1]) != None:
@@ -25,8 +25,8 @@ assert len(row_op_seq.row_ops) == 4
 assert len(row_op_seq.matrices) == 5
 
 for _ in range(5):
-    m = choice(range(1,15))
-    n = choice(range(1,15))
+    m = choice(range(1,8))
+    n = choice(range(1,8))
     p = prime(choice(range(1,500)))
     K = GF(p)
     A = Matrix(m, n, lambda i,j: K(choice(range(p))))
