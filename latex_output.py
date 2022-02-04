@@ -35,4 +35,4 @@ def row_op2latex(row_op):
         return number2latex(k, omit_one=True) + 'R_{' + str(n) + '}\\rightarrow R_{' + str(n) + '}'
 
 def row_op_seq2latex(row_op_seq):
-    pass
+    return '\\begin{align*}\n' + matrix2latex(row_op_seq.matrices[0]) + '&' + ''.join('\\\\\n\\xrightarrow{' + row_op2latex(row_op_seq.row_ops[i]) + '}' + matrix2latex(row_op_seq.matrices[i+1]) + '&' for i in len(row_op_seq.row_ops)) + '\n\\end{align*}'
