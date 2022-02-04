@@ -27,7 +27,7 @@ assert len(row_op_seq.matrices) == 5
 for _ in range(5):
     m = choice(range(1,8))
     n = choice(range(1,8))
-    p = prime(choice(range(1,500)))
+    p = prime(choice(range(1,100)))
     K = GF(p)
     A = Matrix(m, n, lambda i,j: K(choice(range(p))))
     row_op_seq = RowOpSequence(A)
