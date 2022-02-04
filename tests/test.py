@@ -1,8 +1,6 @@
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-os.chdir('..')
 import sys
-sys.path.append(os.getcwd())
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
 
 from __init__ import RowOpSequence, next_row_op_Gauss_Jordan
 
