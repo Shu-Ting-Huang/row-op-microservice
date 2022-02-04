@@ -1,3 +1,9 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+os.chdir('..')
+import sys
+sys.path.append(os.getcwd())
+
 from __init__ import RowOpSequence, next_row_op_Gauss_Jordan
 
 from sympy import Matrix, Rational, Symbol, eye, GF, prime
