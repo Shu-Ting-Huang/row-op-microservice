@@ -37,8 +37,9 @@ def test_latex_output(row_op_seq):
 
 from sympy import Matrix
 from __init__ import *
-A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+A = Matrix([[-2,-1,-3,7], [1,-5,0,0], [3,5,3,2]])
+A = Matrix([[1,-1,1,5], [3,-5,0,0], [0,5,-3,0]])
 row_op_seq = RowOpSequence(A)
-while next_row_op(row_op_seq.matrices[-1]) != None:
-    row_op_seq.add_step(next_row_op(row_op_seq.matrices[-1]))
+while next_row_op_Gauss_Jordan(row_op_seq.matrices[-1]) != None:
+    row_op_seq.add_step(next_row_op_Gauss_Jordan(row_op_seq.matrices[-1]))
 test_latex_output(row_op_seq)
