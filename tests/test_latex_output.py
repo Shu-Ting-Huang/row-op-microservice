@@ -16,7 +16,7 @@ def test_latex_output(row_op_seq):
     # Fill in the template
     with open("latex_template.html", "r") as f:
         template = Template(f.read())
-    html_content = template.substitute(latex_string=row_op_seq2latex(row_op_seq))
+    html_content = template.substitute(latex_string=row_op_seq2latex(row_op_seq).replace('\n', '\n' + ' '*8))
 
     # Host it locally
     class Handler(BaseHTTPRequestHandler):
