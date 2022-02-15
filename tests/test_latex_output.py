@@ -26,10 +26,7 @@ def test_latex_output(row_op_seq):
             self.end_headers()
             self.wfile.write(bytes(html_content, "utf-8"))
     server = HTTPServer(("localhost", 8000), Handler)
-    def serve_twice():
-        server.handle_request()
-        server.handle_request()
-    server_thread = Thread(target=serve_twice)
+    server_thread = Thread(target=lambda:(server.handle_request(), server.handle_request()))
     server_thread.start()
 
     # Open it in a browser
