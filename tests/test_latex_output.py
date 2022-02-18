@@ -38,7 +38,7 @@ def test_latex_output(row_op_seq):
                 port += 1
     port = get_port()            
     server = HTTPServer(("localhost", port), Handler)
-    server_thread = Thread(target=lambda:[server.handle_request() for _ in range(2)] and None)
+    server_thread = Thread(target=server.handle_request)
     server_thread.start()
 
     # Open it in a browser
