@@ -26,7 +26,7 @@ def test_latex_output(row_op_seq):
             self.end_headers()
             self.wfile.write(bytes(html_content, "utf-8"))
     server = HTTPServer(("localhost", 8000), Handler)
-    server_thread = Thread(target=lambda:[server.handle_request(), server.handle_request()] and None)
+    server_thread = Thread(target=lambda:[server.handle_request() for _ in range(2)] and None)
     server_thread.start()
 
     # Open it in a browser
