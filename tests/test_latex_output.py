@@ -31,9 +31,8 @@ def test_latex_output(row_op_seq):
         port = default
         while True:
             try:
-                s = socket()
-                s.bind(('127.0.0.1', port))
-                s.close()
+                with socket() as s:
+                    s.bind(('127.0.0.1', port))
                 return port
             except OSError:
                 port += 1
