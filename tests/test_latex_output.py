@@ -3,6 +3,7 @@ import sys
 from string import Template
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from threading import Thread
+from socket import socket
 
 # Add the parent directory to the path and import row_op_seq2latex
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
@@ -25,12 +26,24 @@ def test_latex_output(row_op_seq):
             self.send_header("Content-type", "text/html")
             self.end_headers()
             self.wfile.write(bytes(html_content, "utf-8"))
-    server = HTTPServer(("localhost", 8000), Handler)
+    def get_port(default=8000): 
+        # https://www.programcreek.com/python/?CodeExample=get+free+port
+        port = default
+        while True:
+            try:
+                s = socket()
+                s.bind(('127.0.0.1', port))
+                s.close()
+                return port
+            except OSError:
+                port += 1
+    port = get_port()            
+    server = HTTPServer(("localhost", port), Handler)
     server_thread = Thread(target=lambda:[server.handle_request() for _ in range(2)] and None)
     server_thread.start()
 
     # Open it in a browser
-    os.system("start http://localhost:8000/")
+    os.system("start http://localhost:" + str(port) + "/")
 
 from sympy import Matrix
 from __init__ import *
